@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html ng-app="mapConnectApp">
+
+<head>
+  <meta charset="utf-8">
+  <title>Map Connect Module</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="resources/css/map.css">
+  <link rel="stylesheet" type="text/css" href="resources/css/bootstrap-tour.min.css">
+</head>
+
+<body>
+
+  <!-- Whole document starts -->
+  <div class="container col-lg-12" ng-controller="mapController as ctrl">
+    <div id="wrapper" class="container col-lg-10 nopadding">
+      <!-- Map UI starts -->
+      <div id="map"></div>
+      <!-- Map UI ends -->
+
+      <div ng-if="!showLoadingMessage==''" id="loadingMsgDiv">
+        <div  class="spinner">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce1"></div>
+          <br>
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <br>
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce1"></div>
+        </div>
+      </div>
+
+      <!-- Error message div starts -->
+      <div id="errorMsgDiv">
+        <div id="successReqAlert" ng-if="!successMessage==''" class="alert alert-success alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>{{successMessage}}</strong>
+        </div>
+        <div id="errorReqAlert" ng-if="!errorMessage==''" class="alert alert-danger alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>{{errorMessage}}</strong>
+        </div>
+      </div>
+      <!-- error message div ends -->
+      <!-- Panel UI that shows the list of circles starts-->
+      <div id="circleLabelDiv" class="container col-lg-2 nopadding" ng-show="showCircles">
+        <div class="panel  nopadding panel-transparent">
+          <div id="circleLabelPanel" class="panel-body">
+            <label title="The radius of the current circle" ng-style="labelHighlighted(id)" id="{{id}}" ng-repeat="(id, circle) in circleMap" ng-mouseleave="circleLabelMouseLeave(id)" ng-mouseenter="circleLabelMouseEnter(id)" class="well well-sm"> {{(circle.radius/1000 | number:0)}} km
+          <span title="Delete the active circle" role="button" id="deleteCircleLabel" ng-click="deleteCircle(id)"  class="glyphicon glyphicon-trash"></span>
+
+          <button id="showCircleUserCount" title="Shows the users in the corresponding region" type="button" class="btn btn-default btn-xs"><span class="badge">{{circle.numberOfPeople}}</span></button>
+            </label>
+          </div>
+
+        </div>
+      </div>
+      <!-- Panel UI ends -->
+      <!-- Area below the map starts -->
+      <div id="mapBelow" class="row nopadding">
+        <p id="currentLocPara">You are currently at: {{currentLatLng}}</p>
+
+        <div class="navbar navbar-inverse nopadding">
+          <button id="toggleCirclePanelBtn" ng-click="toggleCircleDetails()" type="button" class="btn btn-primary">
+            Toggle created circles
+          </button>
+
+          <button ng-click="startTour()" type="button" class="btn btn-success">
+            Start tour
+          </button>
+
+          <button id="sendEmailBtn" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" ng-disabled="showCircles()==0">
+            Send Email
+          </button>
+
+        </div>
+
+        <!-- Modal for user email -->
+        <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">
+                  <img class="img-rounded" ng-src="http://icons.veryicon.com/512/Application/Mavrick/Mail.png" alt="">
+                  New email</h4>
+              </div>
+
+              <!-- Modal Body -->
+              <div class="modal-body">
+
+                <form class="form-horizontal" role="form" ng-submit="sendEmail()">
+                  <!-- Subject for the mail -->
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Subject</label>
+                    <div class="col-sm-10">
+                      <input ng-model="fields.subject" type="text" class="form-control" id="emailSubject" placeholder="Your email subject goes here" />
+                    </div>
+                  </div>
+                  <!-- Text description for the mail -->
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" for="inputPassword3">Content</label>
+                    <div class="col-sm-10">
+                      <textarea ng-model="fields.content" class="form-control" id="emailText" rows="6" placeholder="Your content goes here">
+                    </textarea>
+                    </div>
+                  </div>
+                  <!-- Send mail -->
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button title="Me" ng-disabled="!verifyEmailSubjectText()" type="submit" class="btn btn-primary">Send</button>
+                    </div>
+                  </div>
+                </form>
+
+              </div>
+              <!-- Form  ends -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Send email functionality ends -->
+      </div>
+      <!-- Area below the map ends -->
+    </div>
+  </div>
+  <!-- whole document ends -->
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiTLAnLQxczHq36S0lF-s4kfgavrOW_QA&callback" charset="utf-8"></script>
+  <!-- Angular CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-animate.js" charset="utf-8"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="resources/js/app.js" charset="utf-8"></script>
+  <script src="resources/js/bootstrap-tour.min.js" charset="utf-8"></script>
+  <script src="resources/js/mapTour.js" charset="utf-8"></script>
+  <script src="resources/js/mapConnectService.js" charset="utf-8"></script>
+  <script src="resources/js/mapController.js" charset="utf-8"></script>
+
+</body>
+
+</html>

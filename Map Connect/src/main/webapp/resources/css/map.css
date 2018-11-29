@@ -1,0 +1,203 @@
+#wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+#map {
+  height: 550px;
+}
+
+#deleteCircleLabel{
+  position: relative;
+  margin-left: 5px;
+}
+
+#circleLabelDiv {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 200px;
+}
+
+label {
+  position: relative;
+  width: 100%;
+}
+
+.img-rounded{
+  width:10%;
+  height: 10%
+}
+
+.well-sm {
+    padding: 20px;
+    border-radius: 20px;
+}
+
+#errorMsgDiv{
+  position: absolute;
+  top:30px;
+  right:300px;
+}
+
+.panel-transparent {
+  background: none;
+}
+
+.panel-transparent .panel-body {
+  background: rgba(46, 51, 56, 0.5)!important;
+  color: white;
+}
+
+.panel-body {
+  /*padding: 15px;*/
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+body {
+  /*Add a gradient*/
+  background: rgb(210, 223, 237);
+  /* Old browsers */
+  background: -moz-linear-gradient(-45deg, rgba(210, 223, 237, 1) 0%, rgba(200, 215, 235, 1) 14%, rgba(166, 192, 227, 1) 33%, rgba(166, 192, 227, 1) 33%, rgba(190, 208, 234, 1) 48%, rgba(175, 199, 232, 1) 62%, rgba(186, 208, 239, 1) 75%, rgba(153, 181, 219, 1) 88%, rgba(121, 155, 200, 1) 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, rgba(210, 223, 237, 1) 0%, rgba(200, 215, 235, 1) 14%, rgba(166, 192, 227, 1) 33%, rgba(166, 192, 227, 1) 33%, rgba(190, 208, 234, 1) 48%, rgba(175, 199, 232, 1) 62%, rgba(186, 208, 239, 1) 75%, rgba(153, 181, 219, 1) 88%, rgba(121, 155, 200, 1) 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, rgba(210, 223, 237, 1) 0%, rgba(200, 215, 235, 1) 14%, rgba(166, 192, 227, 1) 33%, rgba(166, 192, 227, 1) 33%, rgba(190, 208, 234, 1) 48%, rgba(175, 199, 232, 1) 62%, rgba(186, 208, 239, 1) 75%, rgba(153, 181, 219, 1) 88%, rgba(121, 155, 200, 1) 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2dfed', endColorstr='#799bc8', GradientType=1);
+  /* IE6-9 fallback on horizontal gradient */
+}
+
+.navbar.navbar-inverse button {
+  padding-left: 10px;
+  margin-left: 10px;
+  margin-top: 7px;
+  margin-right: 10px;
+}
+
+#sendEmailBtn {
+  float: right;
+}
+
+#currentLocPara {
+  background: green;
+  color: white;
+  text-align: center;
+  margin: 0;
+}
+
+
+
+.nopadding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+#circleLabelPanel  span {
+  float: right;
+}
+#circleLabelPanel  button {
+  float: right;
+  margin-right: 10px;
+}
+
+
+/*Animation for when a circle is created*/
+#circleLabelPanel label.ng-enter {
+  transition: 0.3s linear all;
+  opacity: 0;
+  transform: translateY(-50px);
+}
+
+#circleLabelPanel label.ng-enter.ng-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#circleLabelPanel label.ng-leave {
+  transition: 0.2s linear all;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+#circleLabelPanel label.ng-leave.ng-leave-active {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+
+
+/* Track */
+
+/*custom scrollbar*/
+.container ::-webkit-scrollbar {
+    width: 8px;
+}
+.container ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+}
+
+/* Handle */
+.container ::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background: rgba(255,0,0,0.8);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+.container ::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(255,0,0,0.1);
+}
+
+/*spinner css*/
+#loadingMsgDiv {
+  position: absolute;
+  top: 1px;
+  right: 0;
+}
+
+.spinner {
+  margin-right: 300px;
+  margin-top: 10px;
+  width: 100px;
+  text-align: center;
+}
+
+.spinner > div {
+  width: 18px;
+  height: 18px;
+  background-color: #ea6218;
+
+  border-radius: 70%;
+  display: inline-block;
+  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+  background-color: #472f91
+}
+
+.spinner .bounce2 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+
+@-webkit-keyframes sk-bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 40% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+  }
+}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration xmlns="http://logging.apache.org/log4j/2.0/config">
+	<Properties>
+		<Property name="log-path">jumpseatLogs</Property>
+		<Property name="log-file">jumpseat-test.log</Property>
+		<Property name="rolling-log-file">jumpseat-%d{yyyy-MM-dd}-%i.log.gz</Property>
+		<Property name="log-pattern">%-5p | %d{yyyy-MM-dd HH:mm:ss:SSS} | [%t]
+			%C{2} (%F:%L) - %m%n</Property>
+	</Properties>
+
+	<Appenders>
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout pattern="${log-pattern}" />
+		</Console>
+		<RollingFile name="LOGFILE" fileName="${log-path}/${log-file}"
+			filePattern="${log-path}/$${date:yyyy-MM-dd}/${rolling-log-file}">
+			<PatternLayout pattern="${log-pattern}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<Logger name="org.springframework.web" level="debug" />
+		<Root level="info">
+			<AppenderRef ref="STDOUT" />
+			<AppenderRef ref="LOGFILE" />
+		</Root>
+	</Loggers>
+</Configuration>

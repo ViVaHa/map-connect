@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: Ims
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: vishnu
+Implementation-Vendor-Id: com.fedex
+Build-Jdk: 1.8.0_131
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
